@@ -12,3 +12,14 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+  rmq_depers:
+    image: rmq_depers
+    build: 
+      context: ./rmq_depers/
+      dockerfile: Dockerfile
+    ports:
+      - 5673:5672
+      - 15673:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest

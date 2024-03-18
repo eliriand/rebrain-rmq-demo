@@ -1,0 +1,262 @@
+{
+    "rabbit_version": "3.12.13",
+    "rabbitmq_version": "3.12.13",
+    "product_name": "RabbitMQ",
+    "product_version": "3.12.13",
+    "users": [
+        {
+            "name": "guest",
+            "password_hash": "sgjVW67CUyAOKjTvpStqGVvqVWW0rZxMxbXyH8ucWTKk+E0G",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": [
+                "administrator"
+            ],
+            "limits": {}
+        }
+    ],
+    "vhosts": [
+        {
+            "name": "/"
+        }
+    ],
+    "permissions": [
+        {
+            "user": "guest",
+            "vhost": "/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        }
+    ],
+    "topic_permissions": [],
+    "parameters": [
+        {
+            "value": {
+                "ack-mode": "on-confirm",
+                "dest-add-forward-headers": true,
+                "dest-exchange": "depers_x",
+                "dest-protocol": "amqp091",
+                "dest-uri": "amqp://rmq_depers",
+                "src-delete-after": "never",
+                "src-protocol": "amqp091",
+                "src-queue": "to_depers_q",
+                "src-uri": "amqp://"
+            },
+            "vhost": "/",
+            "component": "shovel",
+            "name": "depers-shovel"
+        }
+    ],
+    "global_parameters": [
+        {
+            "name": "internal_cluster_id",
+            "value": "rabbitmq-cluster-id-wa0_UzmtwAoHPE2_e32bmw"
+        }
+    ],
+    "policies": [],
+    "queues": [
+        {
+            "name": "to_depers_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "logs_msk_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "rabbitmq-plugins enable",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "payment_log_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "logs_spb_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "police_reg_spb_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "ins_cases_spb_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "payments_spb_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "ins_cases_msk_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "payments_msk_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "police_reg_msk_q",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        }
+    ],
+    "exchanges": [
+        {
+            "name": "police_x",
+            "vhost": "/",
+            "type": "topic",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        },
+        {
+            "name": "ins_case_x",
+            "vhost": "/",
+            "type": "topic",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }
+    ],
+    "bindings": [
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "to_depers_q",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        },
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "logs_msk_q",
+            "destination_type": "queue",
+            "routing_key": "#.msk",
+            "arguments": {}
+        },
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "logs_spb_q",
+            "destination_type": "queue",
+            "routing_key": "#.spb",
+            "arguments": {}
+        },
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "ins_cases_msk_q",
+            "destination_type": "queue",
+            "routing_key": "ins_case.msk",
+            "arguments": {}
+        },
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "ins_cases_spb_q",
+            "destination_type": "queue",
+            "routing_key": "ins_case.spb",
+            "arguments": {}
+        },
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "payment_log_q",
+            "destination_type": "queue",
+            "routing_key": "payment.#",
+            "arguments": {}
+        },
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "payments_msk_q",
+            "destination_type": "queue",
+            "routing_key": "payment.msk",
+            "arguments": {}
+        },
+        {
+            "source": "ins_case_x",
+            "vhost": "/",
+            "destination": "payments_spb_q",
+            "destination_type": "queue",
+            "routing_key": "payment.spb",
+            "arguments": {}
+        },
+        {
+            "source": "police_x",
+            "vhost": "/",
+            "destination": "to_depers_q",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        },
+        {
+            "source": "police_x",
+            "vhost": "/",
+            "destination": "logs_msk_q",
+            "destination_type": "queue",
+            "routing_key": "#.msk",
+            "arguments": {}
+        },
+        {
+            "source": "police_x",
+            "vhost": "/",
+            "destination": "logs_spb_q",
+            "destination_type": "queue",
+            "routing_key": "#.spb",
+            "arguments": {}
+        },
+        {
+            "source": "police_x",
+            "vhost": "/",
+            "destination": "police_reg_msk_q",
+            "destination_type": "queue",
+            "routing_key": "police.msk",
+            "arguments": {}
+        },
+        {
+            "source": "police_x",
+            "vhost": "/",
+            "destination": "police_reg_spb_q",
+            "destination_type": "queue",
+            "routing_key": "police.spb",
+            "arguments": {}
+        }
+    ]
+}
