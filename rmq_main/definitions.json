@@ -70,13 +70,6 @@
             "arguments": {}
         },
         {
-            "name": "rabbitmq-plugins enable",
-            "vhost": "/",
-            "durable": true,
-            "auto_delete": false,
-            "arguments": {}
-        },
-        {
             "name": "payment_log_q",
             "vhost": "/",
             "durable": true,

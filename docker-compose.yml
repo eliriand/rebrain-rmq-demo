@@ -23,3 +23,131 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+  depersonation_service:
+    image: depersonation_service
+    build:
+      context: ./depersonation_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_depers
+      - RMQ_QUEUE=pending_to_depers_q
+  spb_logger_service:
+    image: logger_service
+    build:
+      context: ./logger_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=logs_spb_q
+      - UNIT_LOCATION=SPB
+  msk_logger_service:
+    image: logger_service
+    build:
+      context: ./logger_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=logs_msk_q
+      - UNIT_LOCATION=MSK
+  payments_logger_service:
+    image: payments_logger_service
+    build:
+      context: ./payments_logger_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=payment_log_q
+  msk_police_registration_service:
+    image: police_registration_service
+    build:
+      context: ./police_registration_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=police_reg_msk_q
+      - UNIT_LOCATION=MSK
+  spb_police_registration_service:
+    image: police_registration_service
+    build:
+      context: ./police_registration_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=police_reg_spb_q
+      - UNIT_LOCATION=SPB
+  spb_incident_processing_service:
+    image: incident_processing_service
+    build:
+      context: ./incident_processing_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=ins_cases_spb_q
+      - UNIT_LOCATION=SPB
+  msk_incident_processing_service:
+    image: incident_processing_service
+    build:
+      context: ./incident_processing_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=ins_cases_msk_q
+      - UNIT_LOCATION=MSK
+  spb_payments_processing_service:
+    image: payments_processing_service
+    build:
+      context: ./payments_processing_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=payments_spb_q
+      - UNIT_LOCATION=SPB
+  msk_payments_processing_service:
+    image: payments_processing_service
+    build:
+      context: ./payments_processing_service/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_QUEUE=payments_msk_q
+      - UNIT_LOCATION=MSK
+  police_registration_publisher:
+    image: police_registration_publisher
+    build:
+      context: ./police_registration_publisher/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_EXCH=police_x
+  insurance_event_registration_publisher:
+    image: insurance_event_registration_publisher
+    build:
+      context: ./insurance_event_registration_publisher/
+      dockerfile: Dockerfile
+    environment:
+      - RMQ_USER=guest
+      - RMQ_PASS=guest
+      - RMQ_HOST=rmq_main
+      - RMQ_EXCH=ins_case_x
